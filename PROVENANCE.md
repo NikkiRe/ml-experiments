@@ -1,58 +1,37 @@
-# Источники и подготовка
+# Источники
 
-Авторы исходных учебных работ: **Слепцов Кирилл и Евстигнеев Никита**. Их имена явно указаны в sports-ноутбуке; обе фамилии присутствуют в имени исходного ResNet50-ноутбука. Публикация не предполагает единоличного авторства любого участника.
+Авторы исходных учебных работ: **Кирилл Слепцов и Никита Евстигнеев**. Решения выполнены совместно по учебным заданиям и шаблонам.
 
-Исходники не изменялись. В репозитории размещены подготовленные для чтения копии:
+## Исходные работы
 
-- `notebooks/resnet50_transfer_learning.ipynb`: исходный файл `ТНВ_Евстигнеев Н_Слепцов К_ЛАБ 3.ipynb`, 35 ячеек; публикационная копия — 34 ячейки. SHA-256 исходника: `22db9742267cf57d2797aa20672818d410c2a3dcff6245279a09d706f8e51aa0`.
-- `notebooks/sports_residual_cnn.ipynb`: исходный файл `TNC_Lab2_с_подробными_пояснениями.ipynb`, 65 ячеек; публикационная копия — 40 ячеек. SHA-256 исходника: `b335d443dddc3170b002289b84caf206ebda6b26cf847d135321f58b59f7b441`.
+- [ЛР1: Pandas, EDA и линейная регрессия](https://colab.research.google.com/drive/1KybocoecK4DJ0N-ZgGAp4nyXhCvruxU8): `notebooks/insurance_regression.ipynb`. SHA-256 исходника: `3ba4f4af7cc30042369ec0834d30d51adf860a62187baee7dce7155ff39ed61f`.
+- [ЛР5: ансамбли](https://colab.research.google.com/drive/1Ktvfu91n8q_e3CxQqLNBXuJEsw2d_al1): `notebooks/used_cars_ensembles.ipynb`. SHA-256: `7493da669447e2441e4aa25b7a2ee8253718f5f28a8596b2b2bc37e6df67b21b`.
+- [ЛР6: кластеризация](https://colab.research.google.com/drive/1YfAy4jqcFla5DTf3BxSmhb62ZVj3IZZc): `notebooks/insurance_clustering.ipynb`. SHA-256: `051993a8631d16b3415d9eae1c958c04b6ac8d73a927ff66ce139ab9115551e0`.
+- ЛР3: transfer learning с ResNet-50, `notebooks/resnet50_transfer_learning.ipynb`. SHA-256 исходника: `22db9742267cf57d2797aa20672818d410c2a3dcff6245279a09d706f8e51aa0`.
+- ЛР2: residual CNN, исходный файл `TNC_Lab2_с_подробными_пояснениями.ipynb`, `notebooks/sports_residual_cnn.ipynb`. SHA-256: `b335d443dddc3170b002289b84caf206ebda6b26cf847d135321f58b59f7b441`.
 
-Последняя версия sports-ноутбука уже содержала подробные пояснения к исходному решению. Эти пояснения не являются доказательством отдельного нового запуска обучения. При подготовке портфолио обучение не повторялось.
+В репозитории оставлены выполненные разделы. Удалены требования сдачи, пустые ответы, незавершённые эксперименты, служебные Colab-выводы, встроенные фотографии и две схемы из шаблона. Пути адаптированы для локального запуска, пояснения сокращены. Числовые результаты и графики относятся к исходным запускам; обучение при оформлении репозитория не повторялось.
 
-Исходные задания, шаблоны, схемы и учебные пояснения имеют собственное происхождение. Авторство учебного задания не приписывается авторам решения; две схемы из шаблона и организационные требования удалены из публикационной копии. Для всего смешанного содержимого новая лицензия не назначена.
+## Данные и модели
 
-## Результаты
+- Insurance: [CSV из stedy/Machine-Learning-with-R-datasets](https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv); [описание на Kaggle](https://www.kaggle.com/datasets/mosapabdelghany/medical-insurance-cost-dataset/data).
+- Used cars: [описание на Kaggle](https://www.kaggle.com/datasets/muhammadawaistayyab/used-cars-prices-in-uk); [CSV из учебного задания](https://drive.google.com/uc?id=1Cdek-lsS3-XiDFtD5PzgXNsy3gvd_Rd-).
+- ImageNet: [ILSVRC/imagenet-1k на Hugging Face](https://huggingface.co/datasets/ILSVRC/imagenet-1k), девять классов из `validation`, по 50 изображений.
+- ResNet-50: веса `torchvision.models.ResNet50_Weights.IMAGENET1K_V2` из официального хранилища PyTorch.
+- Sports: [архив sports.zip из учебного задания](https://drive.google.com/uc?id=1biITy7cv0-lo-bwZrFkyDCGsEOWCBx5W). Первоначальный автор и лицензия набора в исходнике не указаны.
 
-CSV извлечены из сохранённых HTML-таблиц исходного ResNet50-ноутбука:
+Датасеты, фотографии и checkpoint не включены. При скачивании действуют условия источников. Для смешанного содержимого из решений и учебных шаблонов единая лицензия не назначена.
 
-- `results/resnet50_seed42.csv`: ячейка 27 исходника (индексация с нуля).
-- `results/resnet50_four_splits.csv`: ячейка 28 исходника.
+## Сохранённые результаты
 
-PNG извлечены из сохранённых outputs без редактирования и пересчёта:
+CSV извлечены из исходных outputs без пересчёта, PNG сохранены без редактирования. Индексы ячеек ниже начинаются с нуля.
 
-- `results/resnet50_training.png`: ячейка 29 исходника ResNet50.
-- `results/sports_training.png`: ячейка 62 исходника sports CNN.
-
-Встроенные фотографии из outputs удалены; код визуализации сохранён. Числовые логи, параметры обучения и метрики исходного запуска не изменены. Выводы ResNet50 приведены в соответствие с выбором по validation; сравнительные test-значения оставлены в сводках.
-
-## Данные и внешние компоненты
-
-- ImageNet: [ILSVRC/imagenet-1k](https://huggingface.co/datasets/ILSVRC/imagenet-1k), источник загрузки из исходного ноутбука. Использованы девять классов, по 50 изображений из `validation`. Доступ и использование определяются условиями поставщика данных.
-- Веса ResNet50: `torchvision.models.ResNet50_Weights.IMAGENET1K_V2`, скачиваются из официального хранилища PyTorch при новом запуске.
-- Спортивные фотографии: архив `sports.zip` по [ссылке из исходного учебного задания](https://drive.google.com/uc?id=1biITy7cv0-lo-bwZrFkyDCGsEOWCBx5W). Название, автор и лицензия его первоначального источника в исходных ноутбуках не указаны. Уверенно отождествлять архив с другим одноимённым набором данных нельзя.
-
-Данные, изображения датасетов, архивы и веса в этот репозиторий не включены.
-
-## Добавленные Classic ML работы
-
-Авторы всех трёх исходных Colab явно указаны в заголовках: **Слепцов Кирилл, Евстигнеев Никита**. Скопированы только выполненные части с сохранёнными outputs. Original Colab не изменялись; числовые результаты не пересчитывались.
-
-- [ЛР1: Pandas, EDA, линейная регрессия](https://colab.research.google.com/drive/1KybocoecK4DJ0N-ZgGAp4nyXhCvruxU8) → `notebooks/insurance_regression.ipynb`, **34 → 22 ячейки**. SHA-256 скачанного исходника: `3ba4f4af7cc30042369ec0834d30d51adf860a62187baee7dce7155ff39ed61f`. Исключены административные требования, незаполненные теоретические вопросы, демонстрация искусственной даты/resample, Plotly и дублирующий one-hot BMI. Сохранены EDA, OLS, два Lasso-сценария, числовые outputs и статические графики. Выводы сокращены до подтверждённых результатов и ограничений.
-- [ЛР5: Ансамбли, случайный лес, градиентный бустинг](https://colab.research.google.com/drive/1Ktvfu91n8q_e3CxQqLNBXuJEsw2d_al1) → `notebooks/used_cars_ensembles.ipynb`, **124 → 25 ячеек**. SHA-256: `7493da669447e2441e4aa25b7a2ee8253718f5f28a8596b2b2bc37e6df67b21b`. Отобраны выполненные сравнения bagging/blending/stacking, подбор деревьев и метамоделей, EDA insurance и самостоятельный RF на готовых sklearn-деревьях. Исключены незаконченные CatBoost/Optuna-разделы, невыполненные XGBoost/LightGBM/SHAP и экспортные демонстрации, повторные блоки RF и незаполненные ответы. Shell-download заменён параметром локального пути `USED_CARS_CSV`; сами алгоритмы и метрики не менялись. Подтверждённый `GradientBoostingRegressor` из sklearn в сравнении метамоделей сохранён.
-- [ЛР6: Кластеризация](https://colab.research.google.com/drive/1YfAy4jqcFla5DTf3BxSmhb62ZVj3IZZc) → `notebooks/insurance_clustering.ipynb`, **12 → 10 ячеек**. SHA-256: `051993a8631d16b3415d9eae1c958c04b6ac8d73a927ff66ce139ab9115551e0`. Сохранены все четыре code-cells и их outputs. Удалены административные условия, баллы и неподтверждённое утверждение об улучшении DBSCAN после scaling. Выводы ограничены фактически показанными ARI и PCA.
-
-### Извлечённые Classic ML результаты
-
-- `results/insurance_regression_metrics.csv`: значения из сохранённых stream outputs исходных ячеек 26 и 29 ЛР1; повторно напечатанные в ячейке 29 константы OLS не продублированы.
-- `results/used_cars_metrics.csv`: напечатанная сводка исходной ячейки 30 ЛР5 и test-метрики ячеек 13, 33. Более подробные сохранённые сравнения остаются в ноутбуке.
-- `results/insurance_train_distribution.png`: первый PNG исходной ячейки 23 ЛР1; `insurance_ols_actual_predicted.png` — ячейка 26.
-- `results/insurance_clustering_pca.png`: PNG исходной ячейки 10 ЛР6.
-
-Нумерация исходных ячеек — с нуля. CSV извлечены из сохранённых текстовых результатов; PNG извлечены без редактирования. Код новому обучению не подвергался.
-
-### Источники данных Classic ML
-
-- Insurance: фактический [CSV из stedy/Machine-Learning-with-R-datasets](https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/insurance.csv); в ЛР1 также приведена [страница на Kaggle](https://www.kaggle.com/datasets/mosapabdelghany/medical-insurance-cost-dataset/data).
-- Used cars: [описание на Kaggle](https://www.kaggle.com/datasets/muhammadawaistayyab/used-cars-prices-in-uk), фактически скачанный CSV из [учебной ссылки Google Drive](https://drive.google.com/uc?id=1Cdek-lsS3-XiDFtD5PzgXNsy3gvd_Rd-).
-
-CSV с исходными строками данных в репозиторий не копировались. Числовые таблицы и EDA-графики, уже встроенные в публичные Colab, сохранены как результаты учебной работы. Действующие условия источников данных следует соблюдать при получении файлов для нового запуска.
+- `results/resnet50_seed42.csv`: ResNet-50, ячейка 27.
+- `results/resnet50_four_splits.csv`: ResNet-50, ячейка 28.
+- `results/insurance_regression_metrics.csv`: ЛР1, ячейки 26 и 29; повторные константы OLS не продублированы.
+- `results/used_cars_metrics.csv`: ЛР5, ячейки 13, 30 и 33.
+- `results/resnet50_training.png`: ResNet-50, ячейка 29.
+- `results/sports_training.png`: sports CNN, ячейка 62.
+- `results/insurance_train_distribution.png`: первый PNG ЛР1, ячейка 23.
+- `results/insurance_ols_actual_predicted.png`: ЛР1, ячейка 26.
+- `results/insurance_clustering_pca.png`: ЛР6, ячейка 10.
