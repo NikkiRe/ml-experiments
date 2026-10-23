@@ -1,0 +1,9 @@
+model,evaluation,rmse,mape_percent,split_random_state,source_cell
+Bagging (default),test_20_percent,1791.487463,23.347682,42,30
+Blending,test_20_percent,1979.437183,28.632374,42,30
+Stacking,test_20_percent,1984.191515,26.608568,42,30
+Linear Regression,test_20_percent,2258.916434,35.713600,42,30
+Decision Tree,test_20_percent,2269.761821,31.825903,42,30
+kNN (k=5),test_20_percent,2291.323648,27.810170,42,30
+Bagging tuned,test_20_percent,1794.78,25.19,42,13
+Stacking + Bagging,test_20_percent,1767.68,23.69,42,33

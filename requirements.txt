@@ -1,0 +1,17 @@
+# Libraries imported by the notebooks; this is not the original runtime lock file.
+torch
+torchvision
+numpy
+pandas
+Pillow
+matplotlib
+scikit-learn
+tqdm
+ipython
+jupyterlab
+# On-demand ImageNet access in the ResNet50 notebook.
+datasets
+huggingface-hub
+# Classic ML EDA and statistical test in insurance_regression.ipynb.
+scipy
+seaborn

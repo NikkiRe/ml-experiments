@@ -1,0 +1,30 @@
+# Local environments and secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Datasets, raw images, archives and generated training artifacts
+/data/
+/datasets/
+/runs/
+/imagenet9/
+/sports/
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.h5
+*.hdf5
