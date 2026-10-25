@@ -2,6 +2,8 @@
 
 Шесть учебных проектов: регрессия, ансамбли, градиентный бустинг, кластеризация и классификация изображений. В ноутбуках сохранены код, метрики и графики.
 
+Лабораторные работы выполнены совместно с Кириллом Слепцовым; ноутбук с градиентным бустингом сделан отдельно, после курса. Исходные Colab и детали — в [PROVENANCE.md](PROVENANCE.md).
+
 **Стек:** Python, pandas, Polars, NumPy, scikit-learn, CatBoost, LightGBM, XGBoost, Optuna, SciPy, PyTorch, torchvision, matplotlib, seaborn.
 
 ## Classic ML
@@ -11,17 +13,17 @@
 [Ноутбук](notebooks/insurance_regression.ipynb) · [Метрики](results/insurance_regression_metrics.csv)
 
 - EDA набора из 1338 строк, агрегации и объединение таблиц в pandas.
-- `Pipeline` с масштабированием и one-hot encoding, подбор Lasso через `GridSearchCV`, сравнение фильтрации выбросов.
-- OLS на test из 268 строк: **R² 0,7836, RMSE 5796,28, MAE 4181,19**. Lasso не улучшил результат; агрессивная фильтрация target снизила качество.
+- `Pipeline` с масштабированием и one-hot encoding, подбор `alpha` для Lasso через `GridSearchCV`, сравнение двух вариантов фильтрации выбросов.
+- OLS на test из 268 строк: **R² 0,7836, RMSE 5796,28, MAE 4181,19**. Lasso не улучшил результат; фильтрация выбросов с учётом target снизила качество.
 
 ### Цены автомобилей: деревья и ансамбли
 
 [Ноутбук](notebooks/used_cars_ensembles.ipynb) · [Метрики](results/used_cars_metrics.csv)
 
 - Обработка пропусков и редких категорий; linear regression, kNN, decision tree, bagging, blending и stacking.
-- Подбор бэггинга: **360 конфигураций × 5 folds**. Для blending выделена meta-выборка, для stacking используются OOF-предсказания.
+- Подбор бэггинга: **360 конфигураций × 5 folds**. Для blending выделена meta-выборка, в stacking метамодель обучается на OOF-предсказаниях.
 - Базовый bagging: **RMSE 1791,49, MAPE 23,35%** на test 20%, seed 42. Подбор параметров не улучшил test-метрики.
-- Отдельная реализация random forest на `DecisionTreeClassifier` с bootstrap и усреднением вероятностей.
+- Собственный random forest на `DecisionTreeClassifier` (bootstrap, усреднение вероятностей) для классификации региона в insurance.
 
 Пропуски и частоты категорий рассчитаны до train/test split. Для строгой оценки эту обработку нужно перенести внутрь folds.
 
@@ -29,10 +31,10 @@
 
 [Ноутбук](notebooks/gradient_boosting.ipynb) · [Регрессия](results/boosting_regression_metrics.csv) · [Классификация](results/boosting_classification_metrics.csv)
 
-- Тот же split, что у OLS. Модели, гиперпараметры и порог выбираются по 5-fold CV на train, test используется один раз.
-- CatBoost, LightGBM, XGBoost и `HistGradientBoosting`. Early stopping внутри folds, подбор CatBoost через Optuna.
-- SHAP показал взаимодействие smoker × BMI ≥ 30. Три признака по его результатам подняли R² OLS на test с **0,7836 до 0,8773**. У CatBoost после Optuna **R² 0,8823, RMSE 4276**.
-- Классификация дорогих клиентов (20%): порог по F1 на OOF-предсказаниях. На test F1 **0,863** у CatBoost и **0,860** у логистической регрессии с теми же признаками.
+- Тот же split, что у OLS. Число деревьев, гиперпараметры CatBoost и порог классификации подбираются по 5-fold CV на train; test используется только для финального сравнения.
+- CatBoost, LightGBM, XGBoost и `HistGradientBoostingRegressor`. Early stopping внутри folds, подбор CatBoost через Optuna.
+- SHAP показал взаимодействие smoker × BMI ≥ 30. Три признака (`obese`, `smoker_obese`, `age2`) подняли R² OLS на test с **0,7836 до 0,8773**. У CatBoost после Optuna **R² 0,8823, RMSE 4276**.
+- Классификация дорогих клиентов (`charges` не ниже 80-го перцентиля train): порог вероятности максимизирует F1 на OOF-предсказаниях. На test F1 **0,863** у CatBoost и **0,860** у логистической регрессии с теми же тремя признаками.
 
 ### Кластеризация: k-means, DBSCAN и PCA
 
@@ -50,7 +52,7 @@
 
 450 изображений ImageNet, девять классов объединены в три метакласса. Сравнены замороженный backbone, частичный и полный fine-tuning, линейная и MLP-головы: **8 конфигураций × 4 разбиения = 32 обучения**.
 
-Выбранная по validation конфигурация на seed 42: **67/68 верных ответов на test, accuracy 98,53%, macro-F1 0,9852**. Выборка небольшая и относится к домену предобучения. Test-метрики показаны для каждой конфигурации.
+Выбранная по validation конфигурация на seed 42 (`G_frozen_lr1e-2`, замороженный backbone): **67/68 верных ответов на test, accuracy 98,53%, macro-F1 0,9852**. Выборка небольшая и относится к домену предобучения. Test-метрики показаны для каждой конфигурации.
 
 ### Спортивные фотографии: residual CNN с нуля
 
@@ -69,6 +71,6 @@ python -m pip install -r requirements.txt
 jupyter lab
 ```
 
-Открывайте каждый ноутбук в новом kernel и выполняйте сверху вниз. Classic ML не требует GPU; sports CNN использует CUDA. Полный grid search ансамблей может занять заметное время. Точные версии исходных сред не зафиксированы.
+Открывайте каждый ноутбук в новом kernel и выполняйте сверху вниз. Classic ML не требует GPU; sports CNN рассчитан на CUDA. Полный grid search ансамблей может занять заметное время. Версии библиотек для `gradient_boosting.ipynb` указаны в [PROVENANCE.md](PROVENANCE.md); для лабораторных работ точные версии окружений не сохранились.
 
-Данные и checkpoint скачиваются отдельно. Пути описаны в документации, ссылки на источники собраны в [PROVENANCE.md](PROVENANCE.md).
+Данные и веса в репозиторий не включены. Датасеты скачиваются по ссылкам из [PROVENANCE.md](PROVENANCE.md), пути к ним описаны в [docs/classic-ml.md](docs/classic-ml.md) и [docs/computer-vision.md](docs/computer-vision.md). Checkpoint создаются при обучении.
