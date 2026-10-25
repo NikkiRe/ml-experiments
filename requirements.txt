@@ -15,3 +15,10 @@ huggingface-hub
 # Classic ML EDA and statistical test in insurance_regression.ipynb.
 scipy
 seaborn
+# Gradient boosting, tuning and Polars EDA in gradient_boosting.ipynb.
+catboost
+lightgbm
+xgboost
+optuna
+polars
+pyarrow

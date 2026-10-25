@@ -50,6 +50,38 @@ Lasso не улучшил OLS. Удаление дорогих страхово�
 
 IQR-клиппинг выполнен до split. Разница на одном test мала; серия повторов и обработка редких классов в bootstrap не проверены.
 
+## Insurance: градиентный бустинг
+
+[Ноутбук](../notebooks/gradient_boosting.ipynb) · [Регрессия](../results/boosting_regression_metrics.csv) · [Классификация](../results/boosting_classification_metrics.csv)
+
+Split 80/20 с seed 42 совпадает с OLS выше. Модели, гиперпараметры и порог выбираются по 5-fold CV на train, test используется один раз в конце каждой части.
+
+Регрессия `charges`, CV RMSE на train:
+
+- OLS: **6123**.
+- Без настройки: CatBoost **4706**, HistGradientBoosting **4910**, LightGBM **4938**, XGBoost **5487**.
+- CatBoost с early stopping внутри folds: **4550**, в среднем 295 деревьев. После Optuna (30 попыток): **4532**.
+- OLS с признаками `obese`, `smoker_obese`, `age2`: **4448**.
+
+Средний |SHAP|: smoker 7616, age 3110, bmi 2072; у sex и region меньше 100. Взаимодействие bmi × smoker (2953) примерно в десять раз сильнее любого другого. Исключение sex и region не улучшило CV.
+
+![Вклад BMI в прогноз CatBoost](../results/boosting_shap_bmi.png)
+
+Test, 268 строк:
+
+- OLS: **R² 0,7836, RMSE 5796**.
+- OLS + 3 признака: **R² 0,8773, RMSE 4364, MAE 2390**.
+- CatBoost после Optuna: **R² 0,8823, RMSE 4276, MAE 2413**.
+
+Классификация: дорогой клиент, если `charges` не ниже 80-го перцентиля train (20153). Порог вероятности максимизирует F1 на OOF-предсказаниях train.
+
+- Правило «курит»: OOF PR-AUC **0,62**, test F1 **0,811**.
+- Логистическая регрессия: OOF PR-AUC **0,841**, test F1 **0,846**.
+- Логистическая регрессия + 3 признака: OOF PR-AUC **0,848**, test F1 **0,860**, precision **1,0**, recall **0,754**.
+- CatBoost: OOF PR-AUC **0,845**, test F1 **0,863**, precision **0,978**, recall **0,772**.
+
+Набор небольшой, test один, данные без времени. Разница между двумя лучшими моделями в обеих задачах меньше разброса по folds.
+
 ## Insurance: кластеризация
 
 [Ноутбук](../notebooks/insurance_clustering.ipynb)

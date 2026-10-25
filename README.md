@@ -1,8 +1,8 @@
 # ML Experiments
 
-Пять учебных проектов: регрессия, ансамбли, кластеризация и классификация изображений. В ноутбуках сохранены код, метрики и графики.
+Шесть учебных проектов: регрессия, ансамбли, градиентный бустинг, кластеризация и классификация изображений. В ноутбуках сохранены код, метрики и графики.
 
-**Стек:** Python, pandas, NumPy, scikit-learn, SciPy, PyTorch, torchvision, matplotlib, seaborn.
+**Стек:** Python, pandas, Polars, NumPy, scikit-learn, CatBoost, LightGBM, XGBoost, Optuna, SciPy, PyTorch, torchvision, matplotlib, seaborn.
 
 ## Classic ML
 
@@ -24,6 +24,15 @@
 - Отдельная реализация random forest на `DecisionTreeClassifier` с bootstrap и усреднением вероятностей.
 
 Пропуски и частоты категорий рассчитаны до train/test split. Для строгой оценки эту обработку нужно перенести внутрь folds.
+
+### Медицинские расходы: градиентный бустинг
+
+[Ноутбук](notebooks/gradient_boosting.ipynb) · [Регрессия](results/boosting_regression_metrics.csv) · [Классификация](results/boosting_classification_metrics.csv)
+
+- Тот же split, что у OLS. Модели, гиперпараметры и порог выбираются по 5-fold CV на train, test используется один раз.
+- CatBoost, LightGBM, XGBoost и `HistGradientBoosting`. Early stopping внутри folds, подбор CatBoost через Optuna.
+- SHAP показал взаимодействие smoker × BMI ≥ 30. Три признака по его результатам подняли R² OLS на test с **0,7836 до 0,8773**. У CatBoost после Optuna **R² 0,8823, RMSE 4276**.
+- Классификация дорогих клиентов (20%): порог по F1 на OOF-предсказаниях. На test F1 **0,863** у CatBoost и **0,860** у логистической регрессии с теми же признаками.
 
 ### Кластеризация: k-means, DBSCAN и PCA
 
