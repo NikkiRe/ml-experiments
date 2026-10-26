@@ -1,6 +1,6 @@
 # ML Experiments
 
-Шесть учебных проектов: регрессия, ансамбли, градиентный бустинг, кластеризация и классификация изображений. В ноутбуках сохранены код, метрики и графики.
+Шесть учебных ноутбуков: регрессия, ансамбли, градиентный бустинг, кластеризация и классификация изображений.
 
 Лабораторные работы выполнены совместно с Кириллом Слепцовым; ноутбук с градиентным бустингом сделан отдельно, после курса. Исходные Colab и детали — в [PROVENANCE.md](PROVENANCE.md).
 
@@ -33,14 +33,14 @@
 
 - Тот же split, что у OLS. Число деревьев, гиперпараметры CatBoost и порог классификации подбираются по 5-fold CV на train; test используется только для финального сравнения.
 - CatBoost, LightGBM, XGBoost и `HistGradientBoostingRegressor`. Early stopping внутри folds, подбор CatBoost через Optuna.
-- SHAP показал взаимодействие smoker × BMI ≥ 30. Три признака (`obese`, `smoker_obese`, `age2`) подняли R² OLS на test с **0,7836 до 0,8773**. У CatBoost после Optuna **R² 0,8823, RMSE 4276**.
+- EDA и SHAP: взаимодействие smoker × BMI ≥ 30. Три признака (`obese`, `smoker_obese`, `age2`) подняли R² OLS на test с **0,7836 до 0,8773**. У CatBoost после Optuna **R² 0,8823, RMSE 4276**.
 - Классификация дорогих клиентов (`charges` не ниже 80-го перцентиля train): порог вероятности максимизирует F1 на OOF-предсказаниях. На test F1 **0,863** у CatBoost и **0,860** у логистической регрессии с теми же тремя признаками.
 
 ### Кластеризация: k-means, DBSCAN и PCA
 
 [Ноутбук](notebooks/insurance_clustering.ipynb)
 
-Собственный k-means и сравнение с `KMeans`, `AgglomerativeClustering`, `DBSCAN`. Масштабирование, PCA и визуализация кластеров. ARI относительно регионов близок к нулю: **0,0019** у собственного k-means, **0,0025** у sklearn KMeans после scaling и PCA. Найденные кластеры почти не совпадают с региональной разметкой.
+Собственный k-means, `KMeans`, `AgglomerativeClustering`, `DBSCAN`; масштабирование и PCA. ARI относительно регионов: **0,0019** у собственного k-means, **0,0025** у sklearn KMeans после scaling и PCA. Региональная разметка используется только для оценки.
 
 [Методы, результаты и запуск Classic ML](docs/classic-ml.md)
 
@@ -71,6 +71,6 @@ python -m pip install -r requirements.txt
 jupyter lab
 ```
 
-Открывайте каждый ноутбук в новом kernel и выполняйте сверху вниз. Classic ML не требует GPU; sports CNN рассчитан на CUDA. Полный grid search ансамблей может занять заметное время. Версии библиотек для `gradient_boosting.ipynb` указаны в [PROVENANCE.md](PROVENANCE.md); для лабораторных работ точные версии окружений не сохранились.
+Каждый ноутбук запускается сверху вниз в новом kernel. Classic ML не требует GPU; sports CNN рассчитан на CUDA. Версии библиотек для `gradient_boosting.ipynb` указаны в [PROVENANCE.md](PROVENANCE.md); для лабораторных работ точные версии окружений не сохранились.
 
 Данные и веса в репозиторий не включены. Датасеты скачиваются по ссылкам из [PROVENANCE.md](PROVENANCE.md), пути к ним описаны в [docs/classic-ml.md](docs/classic-ml.md) и [docs/computer-vision.md](docs/computer-vision.md). Checkpoint создаются при обучении.
